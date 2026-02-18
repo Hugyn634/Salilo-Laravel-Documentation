@@ -1,0 +1,38 @@
+# Environment files
+.env
+.env.*
+/auth.json
+
+# Dependencies
+/node_modules
+/vendor
+
+# Build files
+/public/build
+/public/hot
+/public/storage
+
+# Laravel storage
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/bootstrap/cache/*
+
+# IDE & editor
+/.vscode
+/.idea
+/.fleet
+/.zed
+.phpactor.json
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+AppData/
+
+# Homestead
+Homestead.json
+Homestead.yaml
