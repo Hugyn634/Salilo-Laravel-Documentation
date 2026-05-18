@@ -67,39 +67,21 @@ class StudentController extends Controller
     /**
      * Display a specific student (READ - Single)
      */
-    public function show($id)
+    public function show(Student $student)
     {
-        try {
-            $student = Student::findOrFail($id);
-
-            return response()->json([
-                'success' => true,
-                'data' => $student,
-                'message' => 'Student retrieved successfully'
-            ], 200);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Student not found',
-                'error' => 'The student with ID ' . $id . ' does not exist'
-            ], 404);
-        } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error retrieving student',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'success' => true,
+            'data' => $student,
+            'message' => 'Student retrieved successfully'
+        ], 200);
     }
 
     /**
      * Update a specific student (UPDATE)
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Student $student)
     {
         try {
-            $student = Student::findOrFail($id);
-
             $validated = $request->validate([
                 'name' => 'sometimes|string|max:255',
                 'email' => 'sometimes|email|unique:students,email,' . $student->id,
@@ -113,12 +95,6 @@ class StudentController extends Controller
                 'data' => $student,
                 'message' => 'Student updated successfully'
             ], 200);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Student not found',
-                'error' => 'The student with ID ' . $id . ' does not exist'
-            ], 404);
         } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,
@@ -137,10 +113,9 @@ class StudentController extends Controller
     /**
      * Delete a specific student (DELETE)
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
         try {
-            $student = Student::findOrFail($id);
             $student->delete();
 
             return response()->json([
@@ -148,12 +123,6 @@ class StudentController extends Controller
                 'message' => 'Student deleted successfully',
                 'data' => null
             ], 200);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Student not found',
-                'error' => 'The student with ID ' . $id . ' does not exist'
-            ], 404);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
